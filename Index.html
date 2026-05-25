@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Memory Book</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="https://unpkg.com/page-flip/dist/css/page-flip.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    radial-gradient(circle at center,
+    #1a1a1a 0%,
+    #000 100%);
+  font-family:Arial, sans-serif;
+}
+
+/* 📖 BOOK WRAPPER */
+.book-wrapper{
+  animation: bookEntry 1.2s ease;
+}
+
+/* ✨ BOOK ENTRY ANIMATION */
+@keyframes bookEntry{
+  0%{
+    opacity:0;
+    transform:scale(0.7) rotateY(-20deg);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1) rotateY(0deg);
+  }
+}
+
+/* 📖 BOOK */
+#book{
+  width:360px;
+  height:560px;
+  position:relative;
+
+  /* 🌫️ ULTRA REALISTIC SHADOW */
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.5),
+    0 30px 80px rgba(0,0,0,0.9),
+    inset 0 0 30px rgba(255,255,255,0.03);
+}
+
+/* 📄 PAGES */
+.page{
+  background:#111;
+  overflow:hidden;
+  position:relative;
+}
+
+/* 🌫️ LEFT PAGE SHADOW */
+.page::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:40px;
+  height:100%;
+  z-index:2;
+  background:linear-gradient(
+    to right,
+    rgba(0,0,0,0.45),
+    transparent
+  );
+}
+
+/* ✨ RIGHT PAGE LIGHT */
+.page::after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:40px;
+  height:100%;
+  z-index:2;
+  background:linear-gradient(
+    to left,
+    rgba(255,255,255,0.08),
+    transparent
+  );
+}
+
+/* 🖼️ IMAGES */
+.page img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* 🎥 VIDEOS */
+.page video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<div class="book-wrapper">
+
+  <div id="book">
+
+    <!-- 📖 COVER -->
+    <div class="page">
+      <img src="cover.jpg">
+    </div>
+
+    <!-- 🎥 VIDEO PAGE 1 -->
+    <div class="page">
+      <video autoplay muted loop playsinline>
+        <source src="1.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 🎥 VIDEO PAGE 2 -->
+    <div class="page">
+      <video autoplay muted loop playsinline>
+        <source src="2.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 🎥 VIDEO PAGE 3 -->
+    <div class="page">
+      <video autoplay muted loop playsinline>
+        <source src="3.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 🎥 VIDEO PAGE 4 -->
+    <div class="page">
+      <video autoplay muted loop playsinline>
+        <source src="4.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 📖 END PAGE -->
+    <div class="page">
+      <img src="end.jpg">
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
+
+<script>
+const pageFlip = new St.PageFlip(
+  document.getElementById("book"),
+  {
+    width:360,
+    height:560,
+
+    /* 📱 FIXED REAL BOOK SIZE */
+    size:"fixed",
+
+    /* 📖 SINGLE COVER + SINGLE END */
+    showCover:true,
+
+    /* ✨ SMOOTH SETTINGS */
+    useMouseEvents:true,
+    mobileScrollSupport:false,
+    swipeDistance:30,
+    maxShadowOpacity:0.5
+  }
+);
+
+pageFlip.loadFromHTML(
+  document.querySelectorAll(".page")
+);
+</script>
+
+</body>
+</html>
